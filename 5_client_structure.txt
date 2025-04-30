@@ -1,0 +1,31 @@
+\e[1;33m# Minimal Client - Java Structure (`MinimalClient.java`)\e[0m
+
+\e[1mKey Areas to Look For (using search/grep):\e[0m
+
+1.  \e[1mEntry Point & Setup:\e[0m
+    - \e[36m`public static void main`\e[0m (Parses args, creates client)
+    - \e[36m`new MinimalClient()`\e[0m (Constructor - initializes Besu factories, NodeKey)
+    - \e[36m`startNetwork()`\e[0m (Binds UDP socket, starts receiver thread)
+    - \e[36m`startDiscoveryProcess()`\e[0m (Initiates PING to bootstrap node)
+
+2.  \e[1mNetwork Listener:\e[0m
+    - \e[36m`receiveLoop()`\e[0m (The main UDP listening loop - uses Virtual Thread)
+    - \e[36m`clientSocket.receive()`\e[0m (Waits for incoming UDP packets)
+    - \e[36m`packetDeserializer.decode`\e[0m (Uses Besu lib to parse raw bytes)
+
+3.  \e[1mPacket Handling Logic:\e[0m
+    - \e[36m`handleIncomingPacket`\e[0m (Switch statement based on packet type)
+    - \e[36m`handlePingPacket`\e[0m (Logic to send a PONG reply)
+    - \e[36m`handlePongPacket`\e[0m (Logic to match PONG to sent PING, update state to BONDED)
+    - \e[36m`handleNeighborsPacket`\e[0m (Logic to process discovered peers)
+
+4.  \e[1mState Management:\e[0m
+    - \e[36m`Map<Bytes, PeerInfo> knownPeers`\e[0m (Stores info about discovered peers)
+    - \e[36m`enum PeerState`\e[0m (Defines states: KNOWN, PING_SENT, BONDED, FAILED)
+    - \e[36m`Map<Bytes, PendingPongInfo> pendingPongs`\e[0m (Tracks outgoing PINGs)
+    - \e[36m`ScheduledExecutorService scheduler`\e[0m (Handles timeouts and delayed tasks)
+
+5.  \e[1mSending Packets:\e[0m
+    - \e[36m`sendPacket`\e[0m or \e[36m`sendPingAndUpdateState`\e[0m (Methods using `clientSocket.send()`)
+    - \e[36m`packetSerializer.encode`\e[0m (Uses Besu lib to convert Packet object to bytes)
+    - \e[36m`packetFactory.create`\e[0m (Uses Besu lib to build packet objects)

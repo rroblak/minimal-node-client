@@ -1,0 +1,15 @@
+\e[1;33m# Minimal Java Ethereum Node Client\e[0m
+
+\e[1mGoals:\e[0m
+  1. Understand how nodes discover each other.
+  2. Peek at the client code.
+  3. How I used AI to help build it.
+
+\e[1mFormat:\e[0m 100% Shell-based!
+
+Let's see it in action quickly...
+
+\e[1mMy app uses the following flags:\e[0m
+  1. \e[36m--advertised-ip\e[0m   - my home external IP (\e[36m73.223.132.52\e[0m)
+  2. \e[36m--listen-port\e[0m     - the port my app is listening on (\e[36m30303\e[0m)
+  3. \e[36m--bootstrap-nodes\e[0m - a Geth mainnet bootstrap node, hard-coded in the Geth codebase

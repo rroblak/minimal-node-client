@@ -1,0 +1,25 @@
+\e[1;33m# Ethereum Discovery v5 (Discv5)\e[0m
+
+Discv5 is Ethereum's specific Kademlia-inspired P2P discovery protocol.
+
+\e[1m*Key Technical Details:*\e[0m
+
+\e[1m*Runs over UDP:\e[0m*
+    - \e[1mFast:\e[0m Low overhead for many small request/response packets (PING/PONG). No connection setup delay.
+    - \e[1mEfficient:\e[0m Less resource-intensive for nodes handling many discovery requests.
+    - \e[1mSufficient:\e[0m Discovery handles occasional lost packets with retries; guaranteed delivery (TCP) is overkill.
+
+\e[1m*Node IDs & XOR Distance:\e[0m*
+    - Nodes have \e[1mcryptographic IDs\e[0m (e.g., `0xabc...def`), derived from their public key. Provides a \e[1munique, verifiable identity\e[0m.
+    - Kademlia uses \e[1mXOR distance\e[0m (`ID_A XOR ID_B`) to define "closeness". \e[1mNOT\e[0m geographical.
+    - Nodes organize \e[1mrouting tables\e[0m based on this XOR distance.
+
+\e[1m*Core Packet Types:\e[0m* (Packets are cryptographically signed)
+    - \e[36mPING:\e[0m Are you there? (Checks liveness)
+    - \e[36mPONG:\e[0m Yes, I'm here! (Confirms reachability)
+    - \e[36mFINDNODE:\e[0m Know any nodes near this target ID? (Network exploration)
+    - \e[36mNEIGHBORS:\e[0m Here are some nodes I know. (Response to FINDNODE)
+
+\e[1m*Important Scope Note:\e[0m* Discovery (UDP) \e[1m*only finds peers*\e[0m. The actual exchange of blocks/transactions happens via the main \e[36mETH Wire Protocol\e[0m over an encrypted \e[1mTCP (RLPx)\e[0m connection established *after* discovery.
+
+\e[3m(We'll dive into the ETH Wire Protocol and RLPx next time!)\e[0m

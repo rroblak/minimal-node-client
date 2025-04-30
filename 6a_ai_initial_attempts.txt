@@ -1,0 +1,15 @@
+\e[1;33m# AI-Assisted Development: Initial Attempts & Challenges\e[0m
+
+Building even a \e[1mminimal\e[0m client that correctly implements Ethereum's Discovery v5 is complex.
+
+\e[1mReality Check:\e[0m
+- Directly asking an LLM (like ChatGPT) to "write a minimal Java Discv5 client" \e[1mfailed\e[0m.
+- The generated code often hallucinated APIs or missed crucial steps.
+- Feedback loop was brutal: the remote Geth bootstrap node would stop responding if any bit was wrong.
+
+\e[1mDebugging Nightmares:\e[0m
+- I tried using \e[36m`tcpdump`\e[0m to see the raw UDP packets, but...
+- The \e[1mcryptographic signing\e[0m of packets made interpreting the raw data extremely difficult.
+- Debugging low-level details like RLP encoding (binary format) and signature verification \e[1mwas very difficult and time-consuming\e[0m.
+
+\e[3m(This approach would've taken far too long. Needed a different strategy...)\e[0m

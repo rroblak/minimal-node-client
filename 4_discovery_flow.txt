@@ -1,0 +1,23 @@
+\e[1;33m# Basic Bootstrap Flow\e[0m
+
+Our Client (You)                Bootstrap Node
+      |                              |
+      | --- \e[36m1. PING\e[0m ---------------> | \e[3m(Client sends PING with its enode info)\e[0m
+      |                              |
+      | <-------------- \e[36m2. PONG\e[0m ---- | \e[3m(Bootstrap verifies reachability, replies)\e[0m
+      |                              |
+      | <-------------- \e[36m3. PING\e[0m ---- | \e[3m(Bootstrap node *also* PINGs client back)\e[0m
+      |                              |
+      | --- \e[36m4. PONG\e[0m ---------------> | \e[3m(Client replies to Bootstrap's PING)\e[0m
+      |                              |
+      .---> Both nodes mark each other as '\e[1mBONDED\e[0m' \e[3m(Mutual connection established)\e[0m
+      |                              |
+      | --- \e[36m5. FINDNODE\e[0m -----------> | \e[3m(Client asks for nodes near *its* ID)\e[0m
+      |                              |
+      | <------------ \e[36m6. NEIGHBORS\e[0m - | \e[3m(Bootstrap sends list of known peers)\e[0m
+      |                              |
+      .---> Client adds NEIGHBORS to its list.
+            Start PINGing newly discovered peers... iterate!
+
+
+Let's map this to the client's logs...

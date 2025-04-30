@@ -1,0 +1,23 @@
+\e[1;33m# AI-Assisted Development: Successful Strategy\e[0m
+
+\e[1mWorking Backwards + Context Injection\e[0m
+
+\e[1m1. Start with a Working Baseline:\e[0m Used the official \e[36mHyperledger Besu\e[0m client as the foundation. Goal: \e[1msimplify\e[0m Besu down to its discovery core.
+
+\e[1m2. The Context Problem:\e[0m LLMs don't know specific codebases or JAR contents. Can't paste entire Besu code (900k+ lines of code).
+
+\e[1m3. The Solution: JAR Cataloging (AI helps build the tool!)\e[0m
+    - Prompted an LLM to write a Ruby script (\e[36m`scripts/besu_jar_catalog.rb`\e[0m).
+    - Script crawls Besu's repository, downloads JARs, lists classes using \e[36m`jar tf`\e[0m, creates a catalog (\e[36m`scripts/besu_jar_catalog.txt`\e[0m).
+
+\e[1m4. Injecting Context:\e[0m Pasted the \e[1mgenerated catalog\e[0m into the LLM's context. (Map of code, not the code itself).
+
+\e[1m5. Effective AI Collaboration:\e[0m With the catalog context, the LLM could accurately help:
+    - \e[1mIdentify APIs/JARs:\e[0m "Which JAR has PING packet classes?"
+    - \e[1mManage Dependencies:\e[0m "How to import `EnodeURL`?"
+    - \e[1mSimplify Code:\e[0m "How does `BesuController` init discovery?"
+    - \e[1mTroubleshoot:\e[0m "`ClassNotFoundException` for `PacketFactory` - which JAR?"
+
+\e[1mImpact:\e[0m AI built the context tool (Ruby script), then used that context to guide simplification and debugging.
+
+Let's peek at the catalog the script generated...
