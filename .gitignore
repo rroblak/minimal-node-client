@@ -1,0 +1,30 @@
+# Gradle files
+.gradle/
+build/
+
+# Generated log file
+run_log.txt
+
+# Generated files from scripts
+scripts/besu_jar_catalog.txt
+scripts/temp_jars/
+scripts/besu_jar_cache/
+
+# IDE files (common examples)
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Other temporary/log files
+*.log
+*.tmp
+*.swp

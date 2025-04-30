@@ -1,0 +1,12 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'com.autonomousapps.build-health' version '2.16.0'
+}
+
+rootProject.name = 'minimal-besu-client'

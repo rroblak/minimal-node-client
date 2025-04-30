@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.yourcompany.minimalclient'
+version = '0.1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url 'https://hyperledger.jfrog.io/hyperledger/besu-maven'
+        // Define content rules for clarity and potentially faster resolution
+        content {
+            includeGroupByRegex('org\\.hyperledger\\.besu.*')
+        }
+    }
+
+    maven {
+        url 'https://dl.cloudsmith.io/public/consensys/maven/maven/'
+        // Define content rules for clarity and potentially faster resolution
+        content {
+            includeGroupByRegex('tech\\.pegasys\\.discovery.*')
+            includeGroupByRegex('io\\.consensys\\.tuweni.*')
+        }
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    mainClass = 'com.yourcompany.minimalclient.MinimalClient'
+}
+
+ext {
+    besuVersion = '25.4.0'
+    lombokVersion = '1.18.32'
+}
+
+dependencies {
+    // --- Lombok ---
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    // --- Besu Dependencies ---
+    // Import Besu's Bill of Materials (BOM) to manage transitive dependency versions
+    implementation platform("org.hyperledger.besu:bom:${besuVersion}")
+
+    // Core Besu Modules
+    implementation "org.hyperledger.besu.internal:p2p" // Version managed by Besu BOM
+    implementation "org.hyperledger.besu:plugin-api" // Version managed by Besu BOM
+    implementation "org.hyperledger.besu.internal:services" // Version managed by Besu BOM
+    implementation "io.vertx:vertx-core" // Version managed by Besu BOM
+
+    // Directly Used Transitive Dependencies (Declare explicitly if needed, managed by BOM)
+    implementation "io.consensys.tuweni:tuweni-bytes"
+    implementation "io.consensys.tuweni:tuweni-units"
+    implementation "org.hyperledger.besu.internal:algorithms" // Version managed by Besu BOM
+
+    // --- Logging Facade & Implementation ---
+    // Use versions consistent with Besu BOM if possible, or define explicitly
+    implementation "org.slf4j:slf4j-api"
+    runtimeOnly "org.apache.logging.log4j:log4j-api"
+    runtimeOnly "org.apache.logging.log4j:log4j-core"
+    runtimeOnly "org.apache.logging.log4j:log4j-slf4j2-impl" // Ensure this matches SLF4J 2.x API
+}

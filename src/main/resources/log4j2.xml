@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%t] %c{1.} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.yourcompany.minimalclient" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Logger name="org.hyperledger.besu.ethereum.p2p.discovery" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Root level="info"> <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
